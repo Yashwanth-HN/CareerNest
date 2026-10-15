@@ -27,7 +27,27 @@ const userSchema = new mongoose.Schema(
       enum: ["jobseeker", "recruiter", "admin"],
       default: "jobseeker",
     },
-    
+    resume: {
+  originalName: {
+    type: String,
+  },
+
+  s3Key: {
+    type: String,
+  },
+
+  mimeType: {
+    type: String,
+  },
+
+  size: {
+    type: Number,
+  },
+
+  uploadedAt: {
+    type: Date,
+  },
+},
     resetPasswordToken: {
         type: String,
       },

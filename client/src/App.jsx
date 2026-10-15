@@ -47,7 +47,7 @@ function App() {
               path="dashboard"
               element={<RecruiterDashboard />}
             />
-            <Route path="jobs" element={<MyJobs />} />
+            <Route path="my-jobs" element={<MyJobs />} />
             <Route path="create-job" element={<CreateJob />} />
             <Route path="applicants/:jobId" element={<Applicants />}
 />

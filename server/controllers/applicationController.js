@@ -1,5 +1,7 @@
 const Application = require("../models/Application");
 const Job = require("../models/Job");
+const User = require("../models/User");
+const { generateDownloadUrl } = require("../services/s3service");
 
 const applyJob = async (req, res) => {
   try {
@@ -200,10 +202,80 @@ const updateApplicationStatus = async (req, res) => {
   }
 };
 
+const getApplicantResume = async (req, res) => {
+  try {
+    const { applicationId } = req.params;
+
+    // 1. Find the application
+    const application = await Application.findById(applicationId);
+
+    if (!application) {
+      return res.status(404).json({
+        success: false,
+        message: "Application not found",
+      });
+    }
+
+    // 2. Find the associated job
+    const job = await Job.findById(application.job);
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    // 3. Verify recruiter ownership
+    if (job.createdBy.toString() !== req.user.id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not authorized to access this resume",
+      });
+    }
+
+    // 4. Retrieve the applicant's resume metadata
+    const applicant = await User.findById(application.applicant)
+      .select("resume");
+
+    if (!applicant || !applicant.resume?.s3Key) {
+      return res.status(404).json({
+        success: false,
+        message: "Applicant has not uploaded a resume",
+      });
+    }
+
+    // 5. Generate a temporary download URL
+    const downloadUrl = await generateDownloadUrl(
+      applicant.resume.s3Key
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Resume access granted",
+      resume: {
+        originalName: applicant.resume.originalName,
+        mimeType: applicant.resume.mimeType,
+        size: applicant.resume.size,
+        downloadUrl,
+        expiresIn: 300,
+      },
+    });
+  } catch (error) {
+    console.error("Get applicant resume error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to retrieve applicant resume",
+    });
+  }
+};
+
 module.exports = {
   applyJob,
   getMyApplications,
   getJobApplicants,
   updateApplicationStatus,
   getDashboardStats,
+  getApplicantResume,
 };

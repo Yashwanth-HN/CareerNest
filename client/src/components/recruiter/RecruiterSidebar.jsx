@@ -1,3 +1,4 @@
+
 import { NavLink } from "react-router-dom";
 import {
   FaTachometerAlt,
@@ -16,7 +17,7 @@ function RecruiterSidebar() {
     {
       name: "My Jobs",
       icon: <FaBriefcase />,
-      path: "/recruiter/jobs",
+      path: "/recruiter/my-jobs",
     },
     {
       name: "Create Job",
@@ -26,19 +27,17 @@ function RecruiterSidebar() {
     {
       name: "Applicants",
       icon: <FaUsers />,
-      path: "/recruiter/applicants",
+      path: "/recruiter/my-jobs",
     },
   ];
 
   return (
     <aside className="w-64 h-screen bg-gray-900 text-white p-6">
-
       <h2 className="text-2xl font-bold mb-8">
         Recruiter
       </h2>
 
       <div className="space-y-2">
-
         {menu.map((item) => (
           <NavLink
             key={item.name}
@@ -55,9 +54,7 @@ function RecruiterSidebar() {
             {item.name}
           </NavLink>
         ))}
-
       </div>
-
     </aside>
   );
 }

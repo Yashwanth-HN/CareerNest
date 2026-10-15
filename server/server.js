@@ -8,6 +8,7 @@ const applicationRoutes = require("./routes/applicationRoutes");
 const errorHandler = require("./middleware/errorMiddleware");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const resumeRoutes = require("./routes/resumeRoutes");
 
 dotenv.config();
 
@@ -31,9 +32,15 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(helmet());
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: allowedOrigins,
     credentials: true,
   })
 );
@@ -43,6 +50,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
+app.use("/api/resume", resumeRoutes);
 
 
 app.use(errorHandler);

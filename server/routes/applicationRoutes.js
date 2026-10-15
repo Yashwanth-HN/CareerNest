@@ -8,6 +8,7 @@ const {
   getJobApplicants,
   updateApplicationStatus,
   getDashboardStats,
+  getApplicantResume,
 } = require("../controllers/applicationController");
 
 const { protect } = require("../middleware/authMiddleware");
@@ -46,6 +47,13 @@ router.post(
   protect,
   authorize("jobseeker"),
   applyJob
+);
+
+router.get(
+  "/:applicationId/resume",
+  protect,
+  authorize("recruiter"),
+  getApplicantResume
 );
 
 module.exports = router;

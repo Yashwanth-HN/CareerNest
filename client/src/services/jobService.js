@@ -69,3 +69,12 @@ export const getJobSeekerDashboardStats = async () => {
 
   return response.data;
 };
+
+
+export const getApplicantResume = async (applicationId) => {
+  const response = await api.get(
+    `/applications/${applicationId}/resume`
+  );
+
+  return response.data;
+};
