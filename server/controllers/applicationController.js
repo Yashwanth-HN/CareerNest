@@ -1,7 +1,7 @@
 const Application = require("../models/Application");
 const Job = require("../models/Job");
 const User = require("../models/User");
-const { generateDownloadUrl } = require("../services/s3service");
+const { generateDownloadUrl } = require("../services/s3Service");
 
 const applyJob = async (req, res) => {
   try {
