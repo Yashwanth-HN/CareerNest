@@ -4,7 +4,7 @@ CareerNest is a full-stack job portal built using the **MERN Stack (MongoDB, Exp
 
 CareerNest V2 extends the platform with **AWS S3-based resume management**, including resume uploads, downloads, replacement, and deletion. It also includes JWT authentication, role-based authorization, password reset through Brevo, protected routes, and cloud deployment.
 
-🌐 **Live Demo:** [CareerNest V2](https://career-nest-ewyy.vercel.app/)
+🌐 **Live Demo:** [CareerNest V2](https://career-nest-ewyw.vercel.app/)
 
 ---
 
@@ -345,7 +345,7 @@ All endpoints below use `/api` as the base path.
 
 ### Frontend — Vercel
 
-**Live URL:** [https://career-nest-ewyy.vercel.app/](https://career-nest-ewyy.vercel.app/)
+**Live URL:** [https://career-nest-ewyw.vercel.app/](https://career-nest-ewyy.vercel.app/)
 
 Configure the Vercel project to deploy from the `v2` branch and use `client` as the root directory.
 
